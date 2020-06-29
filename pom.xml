@@ -6,7 +6,7 @@
 
     <groupId>cn.lefer</groupId>
     <artifactId>tools</artifactId>
-    <version>1.0</version>
+    <version>1.1</version>
 
     <properties>
         <java.version>1.8</java.version>
@@ -21,7 +21,11 @@
             <version>4.13</version>
             <scope>test</scope>
         </dependency>
-
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+            <version>0.9.0</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
@@ -33,6 +37,22 @@
                     <source>8</source>
                     <target>8</target>
                 </configuration>
+            </plugin>
+            <!-- 要将源码放上去，需要加入这个插件 -->
+            <plugin>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.0.1</version>
+                <configuration>
+                    <attach>true</attach>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
