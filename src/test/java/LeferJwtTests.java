@@ -18,10 +18,10 @@ public class LeferJwtTests {
     }
 
     @Test
-    public void testValidToken() {
+    public void testCheckToken() {
         String token = LeferJwt.createToken("tomu", "admin", "12345", 180000);
-        LeferJwtStatus trueTest = LeferJwt.isValid(token, "12345");
-        LeferJwtStatus falseTest = LeferJwt.isValid(token, "1245");
+        LeferJwtStatus trueTest = LeferJwt.checkToken(token, "12345");
+        LeferJwtStatus falseTest = LeferJwt.checkToken(token, "1245");
         Assert.assertTrue(trueTest.isValid());
         Assert.assertFalse(falseTest.isValid());
     }
@@ -30,6 +30,12 @@ public class LeferJwtTests {
     public void testRefreshToken() {
         String oldToken = LeferJwt.createToken("tomu", "admin", "12345", 80000);
         String newToken = LeferJwt.refreshToken(oldToken, "12345", 180000);
-        Assert.assertTrue(LeferJwt.getExpirationDate(newToken,"123456").after(LeferJwt.getExpirationDate(oldToken,"123456")));
+        Assert.assertTrue(LeferJwt.getExpirationDate(newToken, "123456").after(LeferJwt.getExpirationDate(oldToken, "123456")));
+    }
+
+    @Test
+    public void testValidToken() {
+        String token = LeferJwt.createToken("tomu", "admin", "12345", 80000);
+        Assert.assertTrue(LeferJwt.isValid(token, "12345"));
     }
 }

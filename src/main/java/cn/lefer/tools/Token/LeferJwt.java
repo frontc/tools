@@ -52,11 +52,10 @@ public class LeferJwt {
         return Jwts.parser().setSigningKey(key).parseClaimsJws(token).getBody().getExpiration();
     }
 
-    public static LeferJwtStatus isValid(String token, String key) {
+    public static LeferJwtStatus checkToken(String token, String key) {
         LeferJwtStatus status = new LeferJwtStatus();
-        Claims claims = null;
         try {
-            claims = Jwts.parser()
+            Claims claims = Jwts.parser()
                     .setSigningKey(key)
                     .parseClaimsJws(token)
                     .getBody();
@@ -73,5 +72,14 @@ public class LeferJwt {
             status.setValid(false);
         }
         return status;
+    }
+
+    public static boolean isValid(String token, String key) {
+        try {
+            Jwts.parser().setSigningKey(key).parseClaimsJws(token).getBody();
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 }
