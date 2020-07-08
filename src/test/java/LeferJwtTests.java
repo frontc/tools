@@ -1,7 +1,12 @@
+import cn.lefer.tools.Net.LeferNet;
 import cn.lefer.tools.Token.LeferJwt;
 import cn.lefer.tools.Token.LeferJwtStatus;
 import org.junit.Assert;
 import org.junit.Test;
+
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.SocketTimeoutException;
 
 /**
  * @author : lefer
@@ -37,5 +42,12 @@ public class LeferJwtTests {
     public void testValidToken() {
         String token = LeferJwt.createToken("tomu", "admin", "12345", 80000);
         Assert.assertTrue(LeferJwt.isValid(token, "12345"));
+    }
+
+
+    @Test
+    public void testURL() throws MalformedURLException, IOException, SocketTimeoutException {
+        Assert.assertTrue(LeferNet.isValid("https://lefer.cn"));
+        Assert.assertTrue(LeferNet.isValid("http://lefer.cn"));
     }
 }
